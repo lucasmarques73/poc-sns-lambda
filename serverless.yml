@@ -1,0 +1,25 @@
+
+service: poc-sns-lambda
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+  region: us-east-1
+
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - sns:
+          arn: !Ref SuperTopic
+          topicName: MyCustomTopic
+
+resources:
+  Resources:
+    SuperTopic:
+      Type: AWS::SNS::Topic
+      Properties:
+        TopicName: MyCustomTopic
